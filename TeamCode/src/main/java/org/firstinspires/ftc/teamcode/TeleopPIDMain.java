@@ -33,6 +33,8 @@ public class TeleopPIDMain extends LinearOpMode {
             if (gamepad1.right_trigger>.1){
                 robo.lift.setPower(-.5);
             }
+            telemetry.addData("x",rf);
+            telemetry.update();
 
         }
     }
