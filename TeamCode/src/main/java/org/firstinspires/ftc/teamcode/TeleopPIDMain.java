@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp(name="teleport operations")
 public class TeleopPIDMain extends LinearOpMode {
@@ -27,10 +29,10 @@ public class TeleopPIDMain extends LinearOpMode {
 
             robo.setMotorPowers(rf, rb, lf, lb);
 
-            if (gamepad1.left_trigger>.1){
+            if (gamepad1.left_trigger>.1){//lift up
                 robo.lift.setPower(.5);
             }
-            if (gamepad1.right_trigger>.1){
+            if (gamepad1.right_trigger>.1){//lift down
                 robo.lift.setPower(-.5);
             }
             telemetry.addData("x",rf);

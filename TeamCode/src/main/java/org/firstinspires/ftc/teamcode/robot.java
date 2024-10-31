@@ -58,7 +58,7 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 public class robot {
     public LinearOpMode myOpMode;
     public OpMode notMyopMode;
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, lift;/*might not exit? , leftLift, rightLift*/;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, lift, arm;/*might not exit? , leftLift, rightLift*/;
 //    public ServoImplEx claw;
 
     public robot(LinearOpMode opmode) {
@@ -71,9 +71,8 @@ public class robot {
 
     public void init() {
 //        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "_");
+        arm = myOpMode.hardwareMap.get(DcMotorEx.class, "arm");
         lift = myOpMode.hardwareMap.get(DcMotorEx.class, "lift");
-//        leftLift = myOpMode.hardwareMap.get(DcMotorEx.class, "rightLift");
-//        rightLift = myOpMode.hardwareMap.get(DcMotorEx.class, "rightLift");
         leftFront = myOpMode.hardwareMap.get(DcMotorEx.class, "leftFront");
         leftBack = myOpMode.hardwareMap.get(DcMotorEx.class, "leftBack");
         rightFront = myOpMode.hardwareMap.get(DcMotorEx.class, "rightFront");
@@ -85,7 +84,7 @@ public class robot {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
- //       rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         setMotorPowers(0);
@@ -94,9 +93,6 @@ public class robot {
 //        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
     }
 
     public void setMotorPowers(double speed) {
