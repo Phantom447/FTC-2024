@@ -31,9 +31,17 @@ public class TeleopPIDMain extends LinearOpMode {
 
             if (gamepad1.left_trigger>.1){//lift up
                 robo.lift.setPower(.5);
-            }
-            if (gamepad1.right_trigger>.1){//lift down
+            } else if (gamepad1.right_trigger>.1){//lift down
                 robo.lift.setPower(-.5);
+            } else {
+                robo.lift.setPower(0);
+            }
+            if (gamepad1.left_bumper){
+                robo.arm.setPower(.5);
+            } else if (gamepad1.right_bumper){
+                robo.arm.setPower(-.5);
+            } else {
+                robo.arm.setPower(0);
             }
             telemetry.addData("x",rf);
             telemetry.update();
