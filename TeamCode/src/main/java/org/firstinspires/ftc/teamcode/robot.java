@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * This file works in conjunction with the External Hardware Class sample called: ConceptExternalHardwareClass.java
@@ -59,9 +60,11 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 public class robot {
     public LinearOpMode myOpMode;
     public OpMode notMyopMode;
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, lift, arm;/*might not exit? , leftLift, rightLift*/;
-//    public ServoImplEx claw;
-
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, lift, arm;
+    public ServoImplEx claw;
+    public double error;
+    public  double output;
+    public double currentPos;
     public robot(LinearOpMode opmode) {
         myOpMode = opmode;
     }
@@ -71,7 +74,7 @@ public class robot {
 
 
     public void init() {
-//        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "_");
+        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "llama");
         arm = myOpMode.hardwareMap.get(DcMotorEx.class, "arm");
         lift = myOpMode.hardwareMap.get(DcMotorEx.class, "lift");
         leftFront = myOpMode.hardwareMap.get(DcMotorEx.class, "leftFront");
@@ -79,8 +82,11 @@ public class robot {
         rightFront = myOpMode.hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = myOpMode.hardwareMap.get(DcMotorEx.class, "rightBack");
 
+        claw.setPosition(1);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        arm.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -95,7 +101,15 @@ public class robot {
 //        FrontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+        // reset encoders so they chill
+          lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+          arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+          lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+          arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void setMotorPowers(double speed) {
@@ -104,6 +118,22 @@ public class robot {
         rightFront.setPower(speed);
         rightBack.setPower(speed);
     }
+
+    public void workingPIDup(){
+        ElapsedTime timer = new ElapsedTime();
+            ElapsedTime oneSec = new ElapsedTime();
+                currentPos = (lift.getCurrentPosition());
+                error = LiftUtil.target - currentPos;
+                LiftUtil.integralSum += error;
+//                double derivative = (error - LiftUtil.lastError) / timer.seconds();
+//                output = (LiftUtil.LIFTP * error) + (LiftUtil.LIFTI * LiftUtil.integralSum) + (LiftUtil.LIFTD * derivative) + (LiftUtil.LIFTA);
+                output = (LiftUtil.LIFTP * error) + (LiftUtil.LIFTI * LiftUtil.integralSum) + (LiftUtil.LIFTA);
+                lift.setPower(output);
+                LiftUtil.lastError = error;
+        }
+
+
+
     public void setMotorPowers(double s1, double s2, double s3, double s4) {
         leftFront.setPower(s1);
         leftBack.setPower(s2);
