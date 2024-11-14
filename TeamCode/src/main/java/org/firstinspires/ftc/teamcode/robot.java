@@ -82,7 +82,7 @@ public class robot {
         rightFront = myOpMode.hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = myOpMode.hardwareMap.get(DcMotorEx.class, "rightBack");
 
-        claw.setPosition(1);
+        claw.setPosition(0.45);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         arm.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -119,11 +119,11 @@ public class robot {
         rightBack.setPower(speed);
     }
 
-    public void workingPIDup(){
+    public void workingPIDup(double target){
         ElapsedTime timer = new ElapsedTime();
             ElapsedTime oneSec = new ElapsedTime();
                 currentPos = (lift.getCurrentPosition());
-                error = LiftUtil.target - currentPos;
+                error = target - currentPos;
                 LiftUtil.integralSum += error;
 //                double derivative = (error - LiftUtil.lastError) / timer.seconds();
 //                output = (LiftUtil.LIFTP * error) + (LiftUtil.LIFTI * LiftUtil.integralSum) + (LiftUtil.LIFTD * derivative) + (LiftUtil.LIFTA);

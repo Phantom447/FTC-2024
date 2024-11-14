@@ -19,8 +19,7 @@ public class TeleopPIDMain extends LinearOpMode {
             telemetry.addData("lift pos", robo.lift.getCurrentPosition());
             telemetry.addData("lift power", robo.lift.getPower()); /*1000*/
             /*1000*/
-            robo.workingPIDup();
-            telemetry.update();
+              telemetry.update();
 
         }
             while (opModeIsActive()) {
@@ -46,7 +45,7 @@ public class TeleopPIDMain extends LinearOpMode {
                 } else {
                     robo.lift.setPower(0);
                 }
-                if (gamepad1.left_bumper && arm_pos < 800) {
+                if (gamepad1.left_bumper && arm_pos < 1200) {
                     robo.arm.setPower(.5);
                 } else if (gamepad1.right_bumper) {
                     robo.arm.setPower(-.5);
@@ -54,14 +53,17 @@ public class TeleopPIDMain extends LinearOpMode {
                     robo.arm.setPower(0);
                 }
                 if (gamepad1.x) {
-                    robo.workingPIDup();
+                    robo.workingPIDup(800);
+                }
+                if (gamepad1.y) {
+                    robo.workingPIDup(1600);
                 }
                 if (gamepad1.b) {
                     robo.claw.setPosition(0.15);
                 }
 
                 if (gamepad1.a) {
-                    robo.claw.setPosition(0.95);
+                    robo.claw.setPosition(0.5);
                 }
                 if (gamepad1.b) {
                     robo.claw.setPosition(0.15);

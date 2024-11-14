@@ -6,7 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 public class LiftUtil {
     public static double LIFTP = 0.001;
-    public static double LIFTI = 0.00002;
+    public static double LIFTI = 0.000002;
 
     public static double LIFTD = 1;
     public static double integralSum = 0;
