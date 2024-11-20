@@ -72,6 +72,9 @@ public class robot {
         notMyopMode = opmode;
     }
 
+    public double close_pos = 0.53;
+    public double open_pos = 0.10;
+
 
     public void init() {
         claw = myOpMode.hardwareMap.get(ServoImplEx.class, "llama");
