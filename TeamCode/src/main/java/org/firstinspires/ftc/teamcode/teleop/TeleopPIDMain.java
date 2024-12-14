@@ -20,6 +20,7 @@ public class TeleopPIDMain extends LinearOpMode {
             telemetry.addData("lift pos", robo.lift.getCurrentPosition());
             telemetry.addData("lift power", robo.lift.getPower()); /*1000*/
             /*1000*/
+            robo.arm.setTargetPosition(1);
             telemetry.update();
 
         }
