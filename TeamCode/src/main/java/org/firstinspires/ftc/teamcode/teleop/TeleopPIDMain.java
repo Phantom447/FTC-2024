@@ -18,6 +18,7 @@ public class TeleopPIDMain extends LinearOpMode {
         while (opModeInInit()) {
             telemetry.addLine("starting");
             /*1000*/
+            robo.arm.setTargetPosition(1);
             telemetry.update();
 
         }
