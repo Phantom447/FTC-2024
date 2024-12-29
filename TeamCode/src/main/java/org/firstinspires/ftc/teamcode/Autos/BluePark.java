@@ -54,7 +54,7 @@ public class BluePark extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(-15, 60, Math.toRadians(-90)));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(-12, 60, Math.toRadians(-90)));
         Claw claw = new Claw(hardwareMap);
 
         // vision here that outputs position

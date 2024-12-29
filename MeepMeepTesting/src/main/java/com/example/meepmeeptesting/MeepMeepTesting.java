@@ -1,51 +1,42 @@
 package com.example.meepmeeptesting;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-
-import org.rowlandhall.meepmeep.MeepMeep;
-import org.rowlandhall.meepmeep.roadrunner.DefaultBotBuilder;
-import org.rowlandhall.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.noahbres.meepmeep.MeepMeep;
+import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
+import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepTesting {
     public static void main(String[] args) {
-        Pose2d red1 = new Pose2d(10,70,Math.toRadians(-90));
-        Pose2d red2 = new Pose2d(-10,70,Math.toRadians(-90));
-        Pose2d blue1 = new Pose2d(10,-70,Math.toRadians(-90));
-        Pose2d blue2 = new Pose2d(-10,70,Math.toRadians(-90));
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(600);
+
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(red1)
-                        .forward(45)
-                        //claw thing
-                        .turn(Math.toRadians(90))
-                        .forward(35)
-                        .turn(Math.toRadians(90))
-                        //picker the upper :)))))
-                        .forward(35)
-                        //putter the downer
-                        .back(35)
-                        .turn(Math.toRadians(-90))
-                        .forward(10)
-                        //picker the upper again
-                        .turn(Math.toRadians(90))
-                        .forward(35)
-                        //putter the downer again
-                        .back(35)
-                        .turn(Math.toRadians(-90))
-                        .forward(10)
-                        //picker the upper again again
-                        .turn(Math.toRadians(90))
-                        .forward(35)
-                        //putter the downer again again
-                        .back(50)
-                        .turn(Math.toRadians(90))
-                        .forward(35)
-                        .build());
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 18)
+                .build();
 
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12, -59.5, Math.toRadians(-90)))
+                .setTangent(-90)
+                .setReversed(true)
+                .waitSeconds(0.1)
+                .strafeTo(new Vector2d(0, -35))
+                .strafeTo(new Vector2d(35, -35))
+                .waitSeconds(0.1)
+                .lineToY(-12)
+                .strafeTo(new Vector2d(43, -12))
+                .waitSeconds(0.1)
+                .lineToY(-50)
+                .waitSeconds(0.1)
+                .lineToY(-12)
+                .strafeTo(new Vector2d(50, -12))
+                .waitSeconds(0.1)
+                .lineToY(-50)
+                .strafeTo(new Vector2d(34.5, -60))
+                .strafeTo(new Vector2d(0, -35))
+                .strafeTo(new Vector2d(34.5, -60))
+                .build());
 
-        meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
+        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)

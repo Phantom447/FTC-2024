@@ -19,8 +19,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
-@Autonomous(name = "REDpark", group = "Autonomous")
-public class RedPark extends LinearOpMode {
+@Autonomous(name = "RedSpicemen", group = "Autonomous")
+public class RedSpicemen extends LinearOpMode {
 
     public class Claw {
         private Servo claw;
@@ -54,7 +54,7 @@ public class RedPark extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(12, -60, Math.toRadians(90)));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(12, -59.5, Math.toRadians(-90)));
         Claw claw = new Claw(hardwareMap);
 
         // vision here that outputs position
@@ -77,9 +77,23 @@ public class RedPark extends LinearOpMode {
 //                .waitSeconds(3)
 //                .build();
         trajectoryActionCloseOut = drive.actionBuilder(drive.pose)
-                .lineToY(-56)
-                .turn(Math.toRadians(90))
-                .lineToX(57)
+                .setTangent(-90)
+                .setReversed(true)
+                .strafeTo(new Vector2d(1, -35))
+                .strafeTo(new Vector2d(35, -35))
+                .waitSeconds(0.1)
+                .lineToY(-12)
+                .strafeTo(new Vector2d(43, -12))
+                .waitSeconds(0.1)
+                .lineToY(-50)
+                .waitSeconds(0.1)
+                .lineToY(-12)
+                .strafeTo(new Vector2d(50, -12))
+                .waitSeconds(0.1)
+                .lineToY(-50)
+                .strafeTo(new Vector2d(34.5, -60))
+                .strafeTo(new Vector2d(0, -35))
+                .strafeTo(new Vector2d(34.5, -60))
                 .build();
 
         // actions that need to happen on init; for instance, a claw tightening.

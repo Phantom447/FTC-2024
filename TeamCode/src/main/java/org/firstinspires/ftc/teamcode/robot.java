@@ -60,8 +60,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class robot {
     public LinearOpMode myOpMode;
     public OpMode notMyopMode;
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, lift, arm;
-    public ServoImplEx claw;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, leftShift, rightShift, intake;
+    public ServoImplEx claw, gate, rightAxon, leftAxon;
     public double error;
     public  double output;
     public double currentPos;
@@ -72,31 +72,31 @@ public class robot {
         notMyopMode = opmode;
     }
 
-    public double close_pos = 0.53;
+    public double close_pos = 0.69;
     public double open_pos = 0.10;
 
 
     public void init() {
-        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "llama");
-        arm = myOpMode.hardwareMap.get(DcMotorEx.class, "arm");
-        lift = myOpMode.hardwareMap.get(DcMotorEx.class, "lift");
         leftFront = myOpMode.hardwareMap.get(DcMotorEx.class, "leftFront");
         leftBack = myOpMode.hardwareMap.get(DcMotorEx.class, "leftBack");
         rightFront = myOpMode.hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = myOpMode.hardwareMap.get(DcMotorEx.class, "rightBack");
+        leftShift = myOpMode.hardwareMap.get(DcMotorEx.class, "leftShift");
+        rightShift = myOpMode.hardwareMap.get(DcMotorEx.class, "rightShift");
+        gate = myOpMode.hardwareMap.get(ServoImplEx.class, "gate");
+        intake = myOpMode.hardwareMap.get(DcMotorEx.class, "intake");
+        rightAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "rightAxon");
+        leftAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "leftAxon");
+        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "claw");
 
         claw.setPosition(0.45);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        arm.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         setMotorPowers(0);
@@ -107,12 +107,6 @@ public class robot {
 
 
 
-        // reset encoders so they chill
-          lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-          arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-          lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-          arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void setMotorPowers(double speed) {
@@ -122,18 +116,18 @@ public class robot {
         rightBack.setPower(speed);
     }
 
-    public void workingPIDup(double target){
-        ElapsedTime timer = new ElapsedTime();
-            ElapsedTime oneSec = new ElapsedTime();
-                currentPos = (lift.getCurrentPosition());
-                error = target - currentPos;
-                LiftUtil.integralSum += error;
+//    public void workingPIDup(double target){
+//        ElapsedTime timer = new ElapsedTime();
+//            ElapsedTime oneSec = new ElapsedTime();
+//                currentPos = (lift.getCurrentPosition());
+//                error = target - currentPos;
+//                LiftUtil.integralSum += error;
 //                double derivative = (error - LiftUtil.lastError) / timer.seconds();
 //                output = (LiftUtil.LIFTP * error) + (LiftUtil.LIFTI * LiftUtil.integralSum) + (LiftUtil.LIFTD * derivative) + (LiftUtil.LIFTA);
-                output = (LiftUtil.LIFTP * error) + (LiftUtil.LIFTI * LiftUtil.integralSum) + (LiftUtil.LIFTA);
-                lift.setPower(output);
-                LiftUtil.lastError = error;
-        }
+//                output = (LiftUtil.LIFTP * error) + (LiftUtil.LIFTI * LiftUtil.integralSum) + (LiftUtil.LIFTA);
+//                lift.setPower(output);
+//                LiftUtil.lastError = error;
+//        }
 
 
 
