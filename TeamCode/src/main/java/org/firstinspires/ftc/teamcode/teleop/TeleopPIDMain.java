@@ -18,21 +18,21 @@ public class TeleopPIDMain extends LinearOpMode {
         while (opModeInInit()) {
             telemetry.addLine("starting");
             /*1000*/
-            robo.arm.setTargetPosition(1);
+//            robo.arm.setTargetPosition(1);
             telemetry.update();
 
         }
         while (opModeIsActive()) {
-            double y = gamepad2.left_stick_y;
-            double x = gamepad2.left_stick_x;
-            double rx = gamepad2.right_stick_x;
+            double y = gamepad1.left_stick_y;
+            double x = gamepad1.left_stick_x;
+            double rx = gamepad1.right_stick_x;
 
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
             double rf = (y - x - rx) / denominator;
             double rb = (y + x - rx) / denominator;
             double lf = (y + x + rx) / denominator;
             double lb = (y - x + rx) / denominator;
-            if (gamepad2.right_trigger > 0.1) {
+            if (gamepad1.right_trigger > 0.1) {
                 robo.setMotorPowers(rf * 0.2, rb * 0.2, lf * 0.2, lb * 0.2);
             } else {
                 robo.setMotorPowers(rf, rb, lf, lb);
