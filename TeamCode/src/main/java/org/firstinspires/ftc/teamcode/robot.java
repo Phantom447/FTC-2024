@@ -57,7 +57,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  */
 @Config
-public class robot {
+public class  robot {
     public LinearOpMode myOpMode;
     public OpMode notMyopMode;
     public DcMotorEx leftFront, leftBack, rightFront, rightBack, leftShift, rightShift, intake;
@@ -83,15 +83,13 @@ public class robot {
         rightBack = myOpMode.hardwareMap.get(DcMotorEx.class, "rightBack");
         leftShift = myOpMode.hardwareMap.get(DcMotorEx.class, "leftShift");
         rightShift = myOpMode.hardwareMap.get(DcMotorEx.class, "rightShift");
-        gate = myOpMode.hardwareMap.get(ServoImplEx.class, "gate");
+        gate = myOpMode.hardwareMap.get(ServoImplEx.class, "gate"); //switch
         intake = myOpMode.hardwareMap.get(DcMotorEx.class, "intake");
         rightAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "rightAxon");
         leftAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "leftAxon");
         claw = myOpMode.hardwareMap.get(ServoImplEx.class, "claw");
 
-        claw.setPosition(0.45);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        claw.setPosition(0);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -100,13 +98,10 @@ public class robot {
 
 
         setMotorPowers(0);
-//        FrontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        FrontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-
-
-
+        rightFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        leftBack.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void setMotorPowers(double speed) {
@@ -115,6 +110,8 @@ public class robot {
         rightFront.setPower(speed);
         rightBack.setPower(speed);
     }
+
+
 
 //    public void workingPIDup(double target){
 //        ElapsedTime timer = new ElapsedTime();
@@ -131,11 +128,33 @@ public class robot {
 
 
 
-    public void setMotorPowers(double s1, double s2, double s3, double s4) {
-        leftFront.setPower(s1);
-        leftBack.setPower(s2);
-        rightFront.setPower(s3);
-        rightBack.setPower(s4);
+//    public void setPower(double s1, double s2, double s3, double s4) {
+//        leftFront.setPower(s1);
+//        leftBack.setPower(s2);
+//        rightFront.setPower(s3);
+//        rightBack.setPower(s4);
+//    }
+
+
+
+    public void intake(double sp) {
+        intake.setPower(sp);
     }
+
+    public void Hori(double speed) {
+        leftShift.setPower(speed);
+        rightShift.setPower(-speed);
+    }
+   public void arm(double pos1, double pos2){
+        rightAxon.setPosition((pos1));
+       leftAxon.setPosition((pos2));
+   }
+   public void claw(double posi){
+        claw.setPosition(posi);
+   }
+   public void gate(double pos){
+        gate.setPosition(pos);
+   }
+
 
 }
