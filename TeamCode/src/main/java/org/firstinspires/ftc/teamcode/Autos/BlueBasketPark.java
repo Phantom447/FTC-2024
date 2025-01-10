@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name = "BlueBasketPark", group = "Autonomous")
 public class BlueBasketPark extends LinearOpMode {
 
-    public class Claw {
+/*    public class Claw {
         private Servo claw;
 
         public Claw(HardwareMap hardwareMap) {
@@ -47,11 +47,12 @@ public class BlueBasketPark extends LinearOpMode {
         public Action openClaw() {
             return new OpenClaw();
         }
-    }
+    }*/
 
     @Override
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(35, 60, Math.toRadians(-90)));
+        //todo move claw to robot
         Claw claw = new Claw(hardwareMap);
 
         // vision here that outputs position
