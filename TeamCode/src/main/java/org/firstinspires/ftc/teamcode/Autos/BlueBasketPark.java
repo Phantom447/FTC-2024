@@ -53,7 +53,6 @@ public class BlueBasketPark extends LinearOpMode {
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(35, 60, Math.toRadians(-90)));
         //todo move claw to robot
-        Claw claw = new Claw(hardwareMap);
 
         // vision here that outputs position
 
@@ -81,7 +80,7 @@ public class BlueBasketPark extends LinearOpMode {
                 .build();
 
         // actions that need to happen on init; for instance, a claw tightening.
-        Actions.runBlocking(claw.closeClaw());
+//        Actions.runBlocking(claw.closeClaw());
 
 
         while (!isStopRequested() && !opModeIsActive()) {
