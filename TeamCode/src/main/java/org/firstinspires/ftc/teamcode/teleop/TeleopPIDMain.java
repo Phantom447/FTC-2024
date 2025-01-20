@@ -41,40 +41,42 @@ public class TeleopPIDMain extends LinearOpMode {
 
             if (gamepad1.y) {
                 robo.Hori(.75);
+                robo.Vert(.75);
+
             } else if (gamepad1.a) {
-                robo.Hori(-.75);
+                robo.Hori(.75);
+                robo.Vert(-.75);
+
             } else {
                 robo.Hori(0);
+                robo.Vert(0);
+
             }
-            if (gamepad1.right_trigger > 0.1) {
-                robo.intake(0.5);
-            } else if (gamepad1.right_trigger == 0) {
-                robo.intake(-0.5);
-            } else {
-                robo.intake(0);
-            }
+//            if (gamepad1.right_trigger > 0.1) {
+//                robo.intake(0.5);
+//            } else if (gamepad1.right_trigger == 0) {
+//                robo.intake(-0.5);
+//            } else {
+//                robo.intake(0);
+//            }
             if(gamepad2.x){
                 robo.arm(.9, .3);
             } else if(gamepad2.b){
                 robo.arm(.3, .9);
             }
             if (gamepad2.y) {
-                robo.Hori(.75);
+                robo.Vert(.75);
             } else if (gamepad2.a) {
-                robo.Hori(-.75);
+                robo.Vert(-.75);
             } else {
-                robo.Hori(0);
+                robo.Vert(0);
             }
-            if(gamepad2.right_trigger > 0.1) {
-                robo.claw(.3);
-            } else if(gamepad2.right_trigger == 0){
-                robo.claw(0);
-            }
-            if(gamepad2.left_bumper){
-                robo.gate(0.3);
-            } else if(gamepad1.left_bumper){
-                robo.gate(0.65);
-            }
+//            if(gamepad2.right_trigger > 0.1) {
+//                robo.claw(.3);
+//            } else if(gamepad2.right_trigger == 0){
+//                robo.claw(0);
+//            }
+
 
 
 

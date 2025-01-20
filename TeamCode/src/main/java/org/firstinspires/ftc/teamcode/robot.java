@@ -60,7 +60,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class  robot {
     public LinearOpMode myOpMode;
     public OpMode notMyopMode;
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, leftShift, rightShift, intake;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, vertShift, horiShift, intake;
     public ServoImplEx claw, gate, rightAxon, leftAxon;
     public double error;
     public  double output;
@@ -81,15 +81,15 @@ public class  robot {
         leftBack = myOpMode.hardwareMap.get(DcMotorEx.class, "leftBack");
         rightFront = myOpMode.hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = myOpMode.hardwareMap.get(DcMotorEx.class, "rightBack");
-        leftShift = myOpMode.hardwareMap.get(DcMotorEx.class, "leftShift");
-        rightShift = myOpMode.hardwareMap.get(DcMotorEx.class, "rightShift");
+        vertShift = myOpMode.hardwareMap.get(DcMotorEx.class, "vertShift");
+        horiShift = myOpMode.hardwareMap.get(DcMotorEx.class, "horiShift");
         gate = myOpMode.hardwareMap.get(ServoImplEx.class, "gate"); //switch
-        intake = myOpMode.hardwareMap.get(DcMotorEx.class, "intake");
+//        intake = myOpMode.hardwareMap.get(DcMotorEx.class, "intake");
         rightAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "rightAxon");
         leftAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "leftAxon");
-        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "claw");
+//        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "claw");
 
-        claw.setPosition(0);
+//        claw.setPosition(0);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -142,8 +142,10 @@ public class  robot {
     }
 
     public void Hori(double speed) {
-        leftShift.setPower(speed);
-        rightShift.setPower(-speed);
+        horiShift.setPower(speed);
+    }
+    public void Vert(double speed) {
+        vertShift.setPower(speed);
     }
    public void arm(double pos1, double pos2){
         rightAxon.setPosition((pos1));
