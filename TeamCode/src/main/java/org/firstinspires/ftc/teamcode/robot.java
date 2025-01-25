@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -61,7 +62,8 @@ public class  robot {
     public LinearOpMode myOpMode;
     public OpMode notMyopMode;
     public DcMotorEx leftFront, leftBack, rightFront, rightBack, vertShift, horiShift, intake;
-    public ServoImplEx claw, gate, rightAxon, leftAxon;
+    public ServoImplEx claw, rightAxon, leftAxon;
+    public AnalogInput leftAnalog, rightAnalog;
     public double error;
     public  double output;
     public double currentPos;
@@ -83,11 +85,12 @@ public class  robot {
         rightBack = myOpMode.hardwareMap.get(DcMotorEx.class, "rightBack");
         vertShift = myOpMode.hardwareMap.get(DcMotorEx.class, "vertShift");
         horiShift = myOpMode.hardwareMap.get(DcMotorEx.class, "horiShift");
-        gate = myOpMode.hardwareMap.get(ServoImplEx.class, "gate"); //switch
 //        intake = myOpMode.hardwareMap.get(DcMotorEx.class, "intake");
         rightAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "rightAxon");
         leftAxon = myOpMode.hardwareMap.get(ServoImplEx.class, "leftAxon");
 //        claw = myOpMode.hardwareMap.get(ServoImplEx.class, "claw");
+        leftAnalog = myOpMode.hardwareMap.get(AnalogInput.class, "leftAnalog");
+        rightAnalog = myOpMode.hardwareMap.get(AnalogInput.class, "rightAnalog");
 
 //        claw.setPosition(0);
 
@@ -153,9 +156,6 @@ public class  robot {
    }
    public void claw(double posi){
         claw.setPosition(posi);
-   }
-   public void gate(double pos){
-        gate.setPosition(pos);
    }
 
 
